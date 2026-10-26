@@ -1,0 +1,15 @@
+{
+  "name": "Эндо-тренер",
+  "short_name": "Эндо-тренер",
+  "description": "Карточки по 40 билетам, тренажёр диагностики и план на 6 недель к экзамену по эндодонтии",
+  "lang": "ru",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F5F5F3",
+  "theme_color": "#F5F5F3",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

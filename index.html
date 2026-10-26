@@ -1,0 +1,987 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="description" content="Карточки по 40 билетам, тренажёр диагностики и план на 6 недель к экзамену по эндодонтии"><meta name="theme-color" content="#F5F5F3"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" type="image/png" href="icon-192.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Эндо-тренер"><meta name="apple-mobile-web-app-status-bar-style" content="default"><style>html{padding-top:env(safe-area-inset-top,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Эндо-тренер</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+/* Макет: колонка-«телефон» до 480px, плавающее меню-таблетка внизу.
+   Строгая графитовая палитра, как у методички: тёплый белый фон, графитовый текст, один тёмно-синий акцент;
+   разделы — оттенки одной холодной гаммы. Переменные --violet* исторически названы так, это акцент. */
+:root{
+  --bg:#F5F5F3;
+  --surface:rgba(255,255,255,.92); --surface-solid:#FFFFFF; --line:rgba(30,34,38,.09);
+  --fg:#1E2226; --muted:#68707C;
+  --violet:#2C4A7A; --violet-2:#3F5F92; --violet-tint:rgba(44,74,122,.09); --on-violet:#FFFFFF;
+  --ink:#1E2226; --on-ink:#FFFFFF;
+  --good:#2F7D5B; --bad:#B4424F; --good-tint:rgba(47,125,91,.11); --bad-tint:rgba(180,66,79,.09);
+  --tooth:#FFFFFF; --blush:#E8B7C2;
+  --s1:#E4EAF3; --s2:#E2EDF1; --s3:#E8E8F3; --s4:#ECECF0; --s5:#E1EEEB; --s6:#E5ECF5; --s7:#E0EFF1; --s8:#E9ECF1;
+  --s1i:#2C4A7A; --s2i:#2B6177; --s3i:#4A4F8C; --s4i:#585D72; --s5i:#2D6B63; --s6i:#3D6290; --s7i:#2E7381; --s8i:#49556B;
+  --shadow:0 6px 22px rgba(20,30,50,.07);
+  --f-main:'Philosopher','Trebuchet MS','Segoe UI',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15171B;
+    --surface:rgba(31,35,41,.92); --surface-solid:#1F2329; --line:rgba(255,255,255,.09);
+    --fg:#E8EAED; --muted:#9AA2AE;
+    --violet:#8FB0E6; --violet-2:#A9C2EC; --violet-tint:rgba(143,176,230,.15); --on-violet:#12161C;
+    --ink:#E8EAED; --on-ink:#15171B;
+    --good:#6FCB9F; --bad:#EE8A94; --good-tint:rgba(111,203,159,.15); --bad-tint:rgba(238,138,148,.14);
+    --tooth:#F1ECE2; --blush:#B97C8E;
+    --s1:#222C3B; --s2:#1F2E35; --s3:#272841; --s4:#2A2B33; --s5:#1E302C; --s6:#223047; --s7:#1D3036; --s8:#262B34;
+    --s1i:#9DB8E3; --s2i:#8CC3D6; --s3i:#ABAEE6; --s4i:#B3B7C8; --s5i:#8ACFC3; --s6i:#A3C0EA; --s7i:#86CCD8; --s8i:#AEB9CC;
+    --shadow:0 10px 30px rgba(0,0,0,.40);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15171B;
+  --surface:rgba(31,35,41,.92); --surface-solid:#1F2329; --line:rgba(255,255,255,.09);
+  --fg:#E8EAED; --muted:#9AA2AE;
+  --violet:#8FB0E6; --violet-2:#A9C2EC; --violet-tint:rgba(143,176,230,.15); --on-violet:#12161C;
+  --ink:#E8EAED; --on-ink:#15171B;
+  --good:#6FCB9F; --bad:#EE8A94; --good-tint:rgba(111,203,159,.15); --bad-tint:rgba(238,138,148,.14);
+  --tooth:#F1ECE2; --blush:#B97C8E;
+  --s1:#222C3B; --s2:#1F2E35; --s3:#272841; --s4:#2A2B33; --s5:#1E302C; --s6:#223047; --s7:#1D3036; --s8:#262B34;
+  --s1i:#9DB8E3; --s2i:#8CC3D6; --s3i:#ABAEE6; --s4i:#B3B7C8; --s5i:#8ACFC3; --s6i:#A3C0EA; --s7i:#86CCD8; --s8i:#AEB9CC;
+  --shadow:0 10px 30px rgba(0,0,0,.40);
+  color-scheme:dark;
+}
+body{
+  background-color:var(--bg); color:var(--fg);
+  font-family:var(--f-main); font-size:16.5px; line-height:1.42;
+  padding-inline:16px; padding-block:0 calc(118px + env(safe-area-inset-bottom,0px));
+  -webkit-tap-highlight-color:transparent;
+}
+body.lock{ overflow:hidden; }
+*{ box-sizing:border-box; }
+button,input{ font:inherit; color:inherit; }
+button{ cursor:pointer; }
+:focus-visible{ outline:2px solid var(--violet); outline-offset:2px; }
+a{ color:inherit; text-decoration:none; }
+.wrap{ max-width:480px; margin:0 auto; display:flex; flex-direction:column; gap:16px; padding-top:16px; }
+.ic{ width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; flex:none; display:block; }
+.ic.f{ fill:currentColor; stroke:none; }
+.muted{ color:var(--muted); }
+.small{ font-size:14px; }
+
+/* Верхняя панель */
+.topbar{ display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:48px; }
+.topbar.center .bar-title{ position:absolute; left:50%; transform:translateX(-50%); }
+.topbar.center{ position:relative; }
+.bar-title{ margin:0; font-size:19px; font-weight:700; }
+.who{ display:flex; align-items:center; gap:10px; min-width:0; }
+.who-name{ font-weight:700; font-size:17px; }
+.ava{ width:48px; height:48px; border-radius:50%; background:var(--surface-solid); display:grid; place-items:center; box-shadow:var(--shadow); flex:none; }
+.ava.sm{ width:42px; height:42px; }
+.ava.initial{ background:var(--violet); color:var(--on-violet); font-weight:700; font-size:21px; }
+.ava.logo{ background:var(--violet-tint); color:var(--violet); box-shadow:none; }
+.ava .ic{ width:22px; height:22px; }
+.round{ width:46px; height:46px; border-radius:50%; border:1px solid var(--line); background:var(--surface-solid); display:grid; place-items:center; box-shadow:var(--shadow); flex:none; color:var(--fg); }
+.headline{ font-size:clamp(29px,8vw,34px); font-weight:700; line-height:1.12; margin:0; letter-spacing:-.005em; text-wrap:balance; }
+.sub{ margin:-6px 0 0; color:var(--muted); }
+
+/* Кнопки */
+.pill-btn{ border:0; border-radius:999px; padding:11px 18px; font-weight:700; font-size:15.5px; }
+.pill-btn.violet{ background:var(--violet); color:var(--on-violet); box-shadow:0 6px 16px rgba(20,30,50,.16); }
+.pill-btn.grey{ background:var(--line); color:var(--fg); }
+.pill-btn.wide{ width:100%; }
+.ink-btn{ width:100%; border:0; border-radius:999px; padding:15px 20px; background:var(--ink); color:var(--on-ink); font-weight:700; font-size:16.5px; display:flex; align-items:center; justify-content:center; gap:10px; box-shadow:var(--shadow); }
+.ichip{ width:40px; height:40px; border-radius:50%; display:grid; place-items:center; background:var(--violet-tint); color:var(--violet); flex:none; }
+.ichip.w{ background:rgba(255,255,255,.65); color:var(--fg); }
+
+/* Плитки на «Сегодня» */
+.wrap > *{ min-width:0; }
+.feat{ display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:12px; }
+.tile{ background:var(--surface); border:1px solid var(--line); border-radius:26px; padding:16px; box-shadow:var(--shadow); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); display:flex; flex-direction:column; gap:8px; min-width:0; text-align:left; }
+.tile.big{ grid-row:span 2; justify-content:space-between; }
+.tile h3{ margin:0; font-size:19px; line-height:1.2; }
+.tile p{ margin:0; }
+.tile-row{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.tile .go{ color:var(--muted); }
+.col{ display:flex; flex-direction:column; gap:12px; min-width:0; }
+
+.sec-head{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; }
+.sec-head h2{ margin:0; font-size:20px; }
+.sec-head a, .sec-head button{ background:none; border:0; color:var(--muted); font-size:14.5px; padding:0; }
+
+/* Карточки билетов на «Сегодня» */
+.topics{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.topic{ background:var(--surface); border:1px solid var(--line); border-radius:22px; padding:14px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:6px; min-width:0; }
+.topic-num{ font-size:13.5px; font-weight:700; }
+.topic h4{ margin:0; font-size:16.5px; line-height:1.22; }
+.clamp{ display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+.topic .pill-btn{ margin-top:auto; padding:9px 14px; font-size:14.5px; }
+
+/* Полоса недель / дней */
+.strip{ display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:6px; }
+.dpill{ display:flex; flex-direction:column; align-items:center; gap:2px; padding:9px 0; border-radius:16px; border:1.5px solid transparent; font-size:12.5px; color:var(--muted); font-variant-numeric:tabular-nums; }
+.dpill b{ font-size:17px; color:var(--fg); }
+.dpill.past{ background:var(--violet-tint); }
+.dpill.now{ border-color:var(--violet); background:var(--surface-solid); }
+.card{ background:var(--surface); border:1px solid var(--line); border-radius:26px; padding:16px; box-shadow:var(--shadow); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); display:flex; flex-direction:column; gap:12px; min-width:0; }
+.card h3{ margin:0; font-size:18px; }
+.label{ font-size:14px; color:var(--muted); font-weight:700; display:flex; align-items:center; gap:7px; }
+.dot{ width:9px; height:9px; border-radius:50%; flex:none; }
+
+/* Поиск и чипы */
+.search{ display:flex; gap:10px; align-items:center; }
+.search-box{ flex:1; min-width:0; display:flex; align-items:center; gap:8px; background:var(--surface-solid); border:1px solid var(--line); border-radius:999px; padding:0 16px; box-shadow:var(--shadow); color:var(--muted); }
+.search-box input{ flex:1; min-width:0; border:0; background:none; padding:13px 0; outline:none; color:var(--fg); }
+.sq{ width:48px; height:48px; border-radius:50%; border:0; display:grid; place-items:center; background:var(--violet); color:var(--on-violet); box-shadow:0 6px 16px rgba(20,30,50,.16); flex:none; }
+.chips{ display:flex; gap:8px; overflow-x:auto; padding:2px 2px 8px; scrollbar-width:none; }
+.chips::-webkit-scrollbar{ display:none; }
+.chip{ flex:none; border:1px solid var(--line); background:var(--surface-solid); border-radius:999px; padding:8px 16px; font-size:15px; white-space:nowrap; }
+.chip[aria-pressed="true"]{ background:var(--violet); color:var(--on-violet); border-color:transparent; }
+
+/* Плитки билетов */
+.tiles{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.ntile{ border:0; border-radius:24px; padding:14px; text-align:left; display:flex; flex-direction:column; gap:6px; min-width:0; color:var(--fg); box-shadow:var(--shadow); }
+.nt-head{ display:flex; align-items:center; gap:8px; }
+.nt-label{ font-weight:700; font-size:14px; }
+.nt-title{ font-weight:700; font-size:16px; line-height:1.22; }
+.nt-meta{ font-size:13.5px; color:var(--muted); }
+.nt-go{ margin-top:auto; display:flex; align-items:center; justify-content:space-between; font-weight:700; font-size:14.5px; padding-top:4px; }
+.pill{ border-radius:999px; padding:1px 9px; font-size:12.5px; font-weight:700; display:inline-block; }
+.pill.new{ background:rgba(255,255,255,.6); color:var(--muted); }
+.pill.learn{ background:var(--bad-tint); color:var(--bad); }
+.pill.rep{ background:var(--violet-tint); color:var(--violet); }
+.pill.ok{ background:var(--good-tint); color:var(--good); }
+.sticky{ position:sticky; bottom:calc(98px + env(safe-area-inset-bottom,0px)); z-index:10; }
+.empty{ text-align:center; padding:24px 8px; grid-column:1/-1; }
+
+/* Тренажёр-чат */
+.chat{ display:flex; flex-direction:column; gap:12px; }
+.msg{ display:flex; gap:10px; align-items:flex-start; }
+.msg.me{ justify-content:flex-end; }
+.bot-ava{ width:38px; height:38px; border-radius:50%; flex:none; display:grid; place-items:center; background:var(--violet); color:var(--on-violet); }
+.bot-ava.ghost{ visibility:hidden; }
+.bubble{ background:var(--surface-solid); border:1px solid var(--line); border-radius:6px 22px 22px 22px; padding:12px 14px; box-shadow:var(--shadow); min-width:0; max-width:86%; }
+.msg.me .bubble{ background:var(--ink); color:var(--on-ink); border-color:transparent; border-radius:22px 6px 22px 22px; }
+.bubble h4{ margin:0 0 8px; font-size:16.5px; }
+.bubble p{ margin:0; }
+.bubble dl{ margin:0; display:grid; grid-template-columns:minmax(88px,auto) 1fr; gap:7px 12px; }
+.bubble dt{ color:var(--muted); font-size:14px; }
+.bubble dd{ margin:0; }
+.choices{ display:flex; flex-direction:column; align-items:flex-end; gap:8px; }
+.choice{ border:1.5px solid var(--violet-tint); background:var(--surface-solid); border-radius:999px; padding:10px 16px; text-align:right; max-width:90%; box-shadow:var(--shadow); }
+.choice:hover{ border-color:var(--violet); }
+.verdict-ok{ color:var(--good); }
+.verdict-no{ color:var(--bad); }
+.composer{ position:sticky; bottom:calc(98px + env(safe-area-inset-bottom,0px)); z-index:10; display:flex; gap:10px; align-items:center; }
+.composer .fake{ flex:1; min-width:0; background:var(--surface-solid); border:1px solid var(--line); border-radius:999px; padding:13px 18px; color:var(--muted); box-shadow:var(--shadow); text-align:left; }
+.composer .fake.on{ color:var(--fg); }
+.score{ align-self:center; background:var(--surface-solid); border:1px solid var(--line); border-radius:999px; padding:4px 12px; font-size:14px; color:var(--muted); font-variant-numeric:tabular-nums; }
+
+/* Прогресс */
+.profile{ align-items:center; text-align:center; }
+.ava-big{ width:96px; height:96px; border-radius:50%; background:var(--violet); color:var(--on-violet); font-size:42px; font-weight:700; display:grid; place-items:center; box-shadow:0 0 0 5px var(--violet-tint), var(--shadow); }
+.ava-big .ic{ width:40px; height:40px; }
+.pname{ font-size:22px; font-weight:700; margin:0; }
+.big{ font-size:34px; font-weight:700; line-height:1; font-variant-numeric:tabular-nums; }
+.stack{ display:flex; height:12px; border-radius:99px; overflow:hidden; background:var(--line); }
+.stack span{ display:block; height:100%; }
+.legend{ display:flex; flex-wrap:wrap; gap:6px 14px; font-size:14px; color:var(--muted); }
+.legend i{ display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:5px; }
+.two{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.nt-title, .topic h4, .tile h3{ overflow-wrap:anywhere; hyphens:auto; }
+.secrows{ display:flex; flex-direction:column; gap:10px; }
+.secrow{ display:grid; grid-template-columns:1fr auto; gap:4px 10px; font-size:15px; }
+.secrow .bar{ grid-column:1/-1; height:8px; border-radius:99px; background:var(--line); overflow:hidden; }
+.secrow .bar span{ display:block; height:100%; border-radius:99px; }
+.mini{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px; }
+.mini li{ display:flex; gap:10px; }
+.mini .num{ font-weight:700; color:var(--muted); min-width:28px; font-variant-numeric:tabular-nums; }
+.list{ display:flex; flex-direction:column; }
+.lrow{ display:flex; align-items:center; gap:12px; padding:13px 2px; border-bottom:1px solid var(--line); background:none; border-left:0; border-right:0; border-top:0; width:100%; text-align:left; }
+.lrow:last-child{ border-bottom:0; }
+.lrow .grow{ flex:1; min-width:0; }
+.lrow input[type="date"], .lrow input[type="text"]{ border:1px solid var(--line); background:var(--surface-solid); border-radius:12px; padding:6px 8px; max-width:150px; }
+.note{ font-size:14px; color:var(--muted); margin:0; padding:0 2px 8px; }
+.steps{ margin:0 0 6px; padding-left:20px; font-size:14.5px; display:flex; flex-direction:column; gap:4px; }
+.row-btns{ display:flex; gap:10px; }
+.row-btns .pill-btn{ flex:1; }
+.pill-btn.bad{ background:var(--bad-tint); color:var(--bad); }
+
+/* Меню-таблетка */
+.tabbar{ position:fixed; left:0; right:0; bottom:calc(14px + env(safe-area-inset-bottom,0px)); z-index:30; display:flex; justify-content:center; pointer-events:none; padding:0 16px; }
+.tabbar-in{ pointer-events:auto; display:flex; align-items:center; gap:4px; background:var(--surface); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); border:1px solid var(--line); border-radius:999px; padding:7px; box-shadow:0 12px 30px rgba(20,30,50,.14); }
+.tab{ width:50px; height:50px; border-radius:50%; border:0; background:none; display:grid; place-items:center; color:var(--muted); }
+.tab[aria-current="page"]{ background:var(--violet); color:var(--on-violet); }
+.fab{ width:62px; height:62px; margin:-22px 6px 0; border-radius:50%; border:5px solid var(--bg); background:var(--violet); color:var(--on-violet); display:grid; place-items:center; box-shadow:0 10px 24px rgba(20,30,50,.24); }
+.fab .ic{ width:26px; height:26px; }
+
+/* Карточка билета */
+.study{ position:fixed; inset:0; z-index:50; overflow-y:auto; background-color:var(--bg);
+  padding:calc(14px + env(safe-area-inset-top,0px)) 16px calc(22px + env(safe-area-inset-bottom,0px)); }
+.study-in{ max-width:480px; margin:0 auto; display:flex; flex-direction:column; gap:14px; min-height:100%; }
+.prog{ height:6px; border-radius:99px; background:var(--line); overflow:hidden; }
+.prog span{ display:block; height:100%; background:var(--violet); border-radius:99px; transition:width .25s; }
+.center{ text-align:center; }
+/* Медальон билета: номер на цвете раздела, по краю кольцо прогресса */
+.medal-wrap{ display:grid; place-items:center; padding:16px 0 4px; }
+.medal{ position:relative; width:min(56vw,220px); aspect-ratio:1; border-radius:50%; display:grid; place-items:center; background:var(--surface); border:1px solid var(--line); box-shadow:var(--shadow); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); }
+.medal .ring{ position:absolute; inset:0; width:100%; height:100%; transform:rotate(-90deg); }
+.medal .ring circle{ transition:stroke-dashoffset .35s ease-out; }
+.medal-in{ width:74%; aspect-ratio:1; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0; }
+.medal-cap{ font-size:15px; font-weight:700; letter-spacing:.04em; }
+.medal-num{ font-size:clamp(52px,16vw,66px); font-weight:700; line-height:1; color:var(--fg); font-variant-numeric:tabular-nums; }
+.medal-in .ic{ width:56px; height:56px; stroke-width:2.2; }
+.listen{ text-align:center; margin:0; }
+.q{ margin:0; text-align:center; font-size:clamp(25px,7vw,30px); line-height:1.2; font-weight:700; text-wrap:balance; }
+.q .soft{ color:var(--muted); font-weight:400; }
+.q.sm{ font-size:22px; }
+.answer ul{ margin:0; padding-left:18px; display:flex; flex-direction:column; gap:9px; animation:rise .25s ease-out; }
+.answer b{ font-weight:700; }
+.controls{ margin-top:auto; display:flex; justify-content:center; align-items:flex-start; gap:30px; padding-top:10px; }
+.ctl{ display:flex; flex-direction:column; align-items:center; gap:6px; font-size:13.5px; color:var(--muted); background:none; border:0; padding:0; }
+.ctl .c{ width:54px; height:54px; border-radius:50%; display:grid; place-items:center; background:var(--surface-solid); border:1px solid var(--line); color:var(--fg); box-shadow:var(--shadow); }
+.ctl.main .c{ width:70px; height:70px; background:var(--violet); color:var(--on-violet); border:0; box-shadow:0 10px 24px rgba(20,30,50,.24); }
+.ctl.main .c .ic{ width:28px; height:28px; }
+.ctl.main{ color:var(--fg); font-weight:700; }
+.ctl.ghost{ visibility:hidden; }
+@keyframes rise{ from{ opacity:0; transform:translateY(6px);} to{ opacity:1; transform:none; } }
+@media (prefers-reduced-motion: reduce){ .medal .ring circle{ transition:none; } .answer ul{ animation:none; } .prog span{ transition:none; } }
+@media (max-width:360px){ .feat{ grid-template-columns:1fr; } .tile.big{ grid-row:auto; } }
+</style>
+</head>
+<body>
+
+<main class="wrap" id="main"></main>
+<nav class="tabbar" aria-label="Разделы приложения">
+  <div class="tabbar-in" id="tabbar"></div>
+</nav>
+<div class="study" id="study" hidden role="dialog" aria-label="Карточка билета"></div>
+
+<script>
+"use strict";
+/* ---------- Данные ---------- */
+const START = '2026-10-12';           // понедельник, начало плана
+const DEFAULT_EXAM = '2026-11-25';    // примерная дата экзамена, меняется в «Прогрессе»
+const DOC_URL = 'https://claude.ai/code/artifact/178d5de4-72a0-4dd5-82de-6419fcd50358';
+const LS = 'endo-trener-v1';
+const NAME = '';
+
+const SECTIONS = [
+  {id:1, name:'Кариес'},
+  {id:2, name:'Некариозные поражения'},
+  {id:3, name:'Пульпа и пульпиты'},
+  {id:4, name:'Лечение пульпита'},
+  {id:5, name:'Периодонт и периодонтиты'},
+  {id:6, name:'Каналы и инструменты'},
+  {id:7, name:'Ирригация'},
+  {id:8, name:'Пломбирование'}
+];
+
+const T = {
+ 1:[2,'Классификация некариозных поражений. Методы обследования',[
+  'Классификация Патрикеева, до прорезывания: гипоплазия, гиперплазия эмали, флюороз, аномалии развития и цвета, наследственные нарушения.',
+  'После прорезывания: пигментация и налёты, стирание, клиновидный дефект, эрозия, некроз, гиперестезия, травма.',
+  'Основные методы: опрос (где жила в детстве, болезни раннего детства, тетрациклин, профессия, питание, щитовидная железа, техника чистки), осмотр, зондирование, перкуссия, пальпация.',
+  'Дополнительные: окрашивание метиленовым синим (некариозные не окрашиваются), высушивание, люминесценция, трансиллюминация, термопроба, ЭОД, рентген, индексы гигиены, pH слюны, консультации эндокринолога и гастроэнтеролога.']],
+ 2:[2,'Флюороз',[
+  'Причина: фтор в воде больше 1,5 мг/л в период формирования зубов (норма 0,8–1,2). Страдают постоянные зубы.',
+  'Формы по Патрикееву: штриховая, пятнистая, меловидно-крапчатая, эрозивная, деструктивная.',
+  'Дифдиагностика: кариес пятна (единичный, окрашивается), системная гипоплазия (зубы одного периода, на одном уровне), несовершенный амелогенез.',
+  'Лечение: штриховая и пятнистая — реминерализация, микроабразия, отбеливание; меловидно-крапчатая — отбеливание и композит; эрозивная и деструктивная — реставрации, виниры, коронки. Профилактика — смена источника воды.']],
+ 3:[3,'Строение и функции пульпы',[
+  'Пульпа — рыхлая соединительная ткань: коронковая богаче клетками, корневая — волокнами.',
+  'Слои: одонтобластический → бесклеточный (зона Вейля, сплетение Рашкова) → богатый клетками → центральный.',
+  'Особенности: замкнута в твёрдых стенках, сосуды входят через узкое апикальное отверстие → отёк сдавливает сосуды; нет проприорецепторов → боль иррадиирует.',
+  'Функции: пластическая (первичный, вторичный, третичный дентин), трофическая, защитная, сенсорная.']],
+ 4:[5,'Строение и функции периодонта',[
+  'Щель 0,15–0,35 мм, уже всего в средней трети корня — форма песочных часов.',
+  'Клетки: фибробласты, цементобласты, остеобласты и остеокласты, эпителиальные остатки Малассе.',
+  'Волокна шарпеевы; группы: гребешковые, горизонтальные, косые (их больше всего), апикальные, межкорневые.',
+  'Функции: опорно-удерживающая, амортизирующая, трофическая, пластическая, сенсорная, защитная. Проприорецепторы → боль при периодонтите чётко локализована.']],
+ 5:[1,'Средний кариес',[
+  'Жалобы: кратковременная боль от химических и механических раздражителей, проходит сразу.',
+  'Объективно: полость в плащевом дентине, зондирование болезненно по эмалево-дентинной границе, перкуссия безболезненна, ЭОД 2–6 мкА.',
+  'Дифдиагностика: поверхностный и глубокий кариес, клиновидный дефект, эрозия, хронический фиброзный периодонтит (ЭОД больше 100).',
+  'Лечение: обезболивание → раскрытие → расширение → некрэктомия → формирование → финирование → прокладка по показаниям → пломба.']],
+ 6:[3,'Острый диффузный пульпит',[
+  'Жалобы: длительные приступы с короткими паузами, иррадиация по ветвям тройничного нерва, ночью сильнее; в гнойной фазе тепло усиливает боль, холод успокаивает.',
+  'Объективно: зондирование болезненно по всему дну, перкуссия слабо болезненна или нет, ЭОД 20–45 мкА.',
+  'Дифдиагностика: острый очаговый пульпит, обострение хронического, острый периодонтит, невралгия тройничного нерва, гайморит.',
+  'Лечение: витальная экстирпация (метод выбора) или девитальная.']],
+ 7:[6,'Рабочая длина. Анатомическая, физиологическая и рентгенологическая верхушки',[
+  'Рабочая длина — от референтной точки на коронке до физиологической верхушки.',
+  'Анатомическая верхушка — конец корня; рентгенологическая — конец корня на снимке; физиологическая — апикальное сужение, примерно 0,5–1 мм от рентгенологической.',
+  'Методы: табличный, тактильный, рентгенологический (по пропорции), апекслокатор, комбинированный — самый надёжный.']],
+ 8:[2,'Некроз твёрдых тканей зуба',[
+  'Виды: кислотный (пары кислот на производстве), пришеечный при эндокринных нарушениях, лучевой.',
+  'Кислотный: оскомина, эмаль теряет блеск, становится меловидной, разрушается с режущего края. Пришеечный: меловидные участки у шейки → циркулярные дефекты.',
+  'Дифдиагностика: множественный кариес, эрозия, клиновидный дефект, деструктивный флюороз.',
+  'Лечение: убрать причину (защита, щелочные полоскания, эндокринолог), общая и местная реминерализация, пломбирование СИЦ и композитом, коронки.']],
+ 9:[5,'Хронический гранулирующий периодонтит',[
+  'Жалобы: тяжесть, распирание, периодически свищ с гноем.',
+  'Объективно: зондирование безболезненно, перкуссия слабо болезненна или нет, свищ или рубец, симптом вазопареза, ЭОД больше 100 мкА.',
+  'Рентген: очаг разрежения с нечёткими контурами — «языки пламени».',
+  'Лечение: обработка канала, гипохлорит + ЭДТА, гидроксид кальция на 2–3 недели, затем пломбирование; при неуспехе — хирургия.']],
+ 10:[6,'Эндодонтические инструменты и их стандартизация',[
+  'По назначению: раскрытие полости (боры, Endo-Z), устья (Gates-Glidden, Largo), удаление пульпы (пульпоэкстрактор), прохождение (K-ример, K-файл 06–15), расширение (K-файл, H-файл, Ni-Ti), длина (апекслокатор), пломбирование (Lentulo, спредер, плаггер).',
+  'ISO: номер = диаметр кончика в сотых мм; рабочая часть 16 мм; конусность 2%, D16 = D0 + 0,32 мм.',
+  'Цвета: 15 белый, 20 жёлтый, 25 красный, 30 синий, 35 зелёный, 40 чёрный — дальше повторяются.']],
+ 11:[2,'Гиперестезия твёрдых тканей зуба',[
+  'Причины: кариес и некариозные поражения, рецессия десны, препарирование, отбеливание; системные — эндокринные, беременность, климакс.',
+  'Патогенез: гидродинамическая теория Бреннстрема — движение жидкости в дентинных трубочках.',
+  'Классификация Фёдорова: ограниченная и генерализованная; I степень — температурные (ЭОД 5–8), II — + химические (3–5), III — все, включая тактильные (1,5–3,5).',
+  'Лечение: десенситайзеры (фтор, Gluma, нитрат калия), реминерализация, электрофорез, пломбирование; общее — кальций, витамины.']],
+ 12:[8,'Методы пломбирования каналов, инструменты, контроль качества',[
+  'Методы: одной пастой (устарел), одного штифта, латеральная конденсация (классический стандарт), вертикальная конденсация разогретой гуттаперчи, термопластифицированная гуттаперча (Obtura, Thermafil).',
+  'Инструменты: Lentulo, спредеры, плаггеры, System B, Obtura, бумажные штифты.',
+  'Контроль на рентгене: длина (до физиологической верхушки), плотность (без пустот), конусность.']],
+ 13:[3,'Хронический гангренозный пульпит',[
+  'Жалобы: ноющая боль от горячего, медленно проходит; неприятный запах; серый оттенок зуба.',
+  'Объективно: поверхностное зондирование безболезненно, в устьях каналов болезненно и кровоточит; ЭОД 60–90 мкА.',
+  'Дифдиагностика: хронический фиброзный пульпит, хронический периодонтит.',
+  'Лечение: экстирпация с тщательной антисептикой, при необходимости гидроксид кальция в канал.']],
+ 14:[4,'Девитальные методы лечения пульпита',[
+  'Пасты: мышьяковистая — 24 ч в однокорневых, 48 ч в многокорневых; параформальдегидная — 7–14 дней.',
+  'Показания: нельзя провести анестезию; девитальная ампутация — непроходимые каналы многокорневых зубов.',
+  'Противопоказания: аллергия, нельзя герметично закрыть полость, несформированные корни, гангренозный пульпит, беременность.',
+  'Осложнения: мышьяковистый периодонтит (антидот — унитиол, йод), некроз десны и кости, окрашивание зуба.']],
+ 15:[1,'Классификации кариеса. Интенсивность, распространённость, заболеваемость',[
+  'По глубине: пятно, поверхностный, средний, глубокий. МКБ-10: K02.0–K02.9.',
+  'По течению: острый, острейший, хронический, приостановившийся; первичный и вторичный.',
+  'По Блэку: I — фиссуры, II — контактные моляров и премоляров, III — контактные фронта, IV — то же с режущим краем, V — пришеечные (VI — бугры и режущие края).',
+  'Распространённость = больные / обследованные × 100%; интенсивность = КПУ; заболеваемость = прирост КПУ за год.']],
+ 16:[3,'Хронический фиброзный пульпит',[
+  'Жалобы: ноющая боль от холодного, долго не проходит после устранения.',
+  'Объективно: часто есть сообщение с полостью зуба, зондирование в этой точке болезненно, пульпа кровоточит; ЭОД 35–50 мкА.',
+  'Дифдиагностика: глубокий кариес, острый очаговый пульпит, хронический гангренозный пульпит, хронический периодонтит.',
+  'Лечение: витальная экстирпация; ампутация — в многокорневых зубах у молодых.']],
+ 17:[7,'Антисептики для обработки корневых каналов',[
+  'Гипохлорит натрия 0,5–5,25% — «золотой стандарт», растворяет органику; токсичен за верхушкой.',
+  'Хлоргексидин 0,06–2% — действует на E. faecalis и долго держится, но не растворяет органику; с гипохлоритом даёт осадок.',
+  'Также: перекись водорода 3% (редко), йодсодержащие; устаревшие — хлорамин, фурацилин.',
+  'Финальный протокол: гипохлорит → ЭДТА 17% на 1 мин → гипохлорит или вода → хлоргексидин.']],
+ 18:[2,'Эрозия твёрдых тканей зуба',[
+  'Причины: кислоты (соки, рефлюкс, булимия), зубная щётка, тиреотоксикоз.',
+  'Клиника: овальный дефект на самой выпуклой части вестибулярной поверхности, дно гладкое и блестящее; степени I–III; активная и стабилизированная.',
+  'Дифдиагностика: клиновидный дефект, кариес, гипоплазия, некроз.',
+  'Лечение: убрать причину, реминерализация, десенситайзеры, композит или виниры.']],
+ 19:[6,'Коронально-апикальные методы обработки каналов',[
+  'Принцип: сначала устье и средняя треть, потом к верхушке инструментами уменьшающегося размера.',
+  'Плюсы: меньше выталкивания за верхушку, прямой доступ, ирригант проникает глубже, рабочая длина не меняется.',
+  'Техники: crown-down, step-down, double flare; Ni-Ti системы, например ProTaper: SX → S1, S2 → рабочая длина → F1–F3.',
+  'После каждого инструмента — ирригация и рекапитуляция файлом № 10.']],
+ 20:[4,'Биологический метод лечения пульпита. Лечебные прокладки',[
+  'Показания: острый очаговый пульпит до 1–2 суток, случайное вскрытие; возраст до 30–35 лет; нет общих заболеваний; ЭОД до 20–25.',
+  'Противопоказания: диффузный и хронические формы, обострение; старше 35–40 лет; соматика; пришеечная полость; зуб под коронку.',
+  'Техника: анестезия, коффердам, некрэктомия, мягкая антисептика, лечебная прокладка, СИЦ, временная пломба на 2–6 недель.',
+  'Прокладки: гидроксид кальция (Dycal, Life), МТА и Biodentine, цинк-эвгенольные (только непрямое покрытие), комбинированные.']],
+ 21:[7,'Антисептики и препараты для химического расширения каналов',[
+  'Антисептики — как в билете 17: гипохлорит, хлоргексидин, перекись, йодсодержащие.',
+  'Хелаты связывают кальций → размягчают стенку канала и удаляют смазанный слой.',
+  'Жидкие: ЭДТА 15–17%, лимонная кислота 10–40%. Гели-лубриканты: RC-Prep, Glyde, File-Eze, «Канал+».']],
+ 22:[1,'Этиология, патогенез и диагностика кариеса',[
+  'Теории: химико-паразитарная Миллера (основа), физико-химическая, биологическая, трофическая, протеолитическая.',
+  'Кариес многофакторный: микробы (S. mutans, лактобациллы), углеводы, сниженная резистентность и время.',
+  'Патогенез: кислоты → pH ниже 5,5 → подповерхностная деминерализация → пятно → дефект.',
+  'Диагностика: основные методы + окрашивание, высушивание, люминесценция, трансиллюминация, DIAGNOdent, ЭОД, рентген (bitewing).']],
+ 23:[3,'Обострение хронических форм пульпита',[
+  'Причины: закрылся отток экссудата, снизилась сопротивляемость (ОРВИ, переохлаждение), выросла вирулентность микробов.',
+  'Клиника: приступы с иррадиацией, как при остром, но в анамнезе уже были боли; перкуссия часто болезненна; ЭОД 40–60 (фиброзный) или 60–90 (гангренозный).',
+  'Рентген: расширение периодонтальной щели у верхушки.',
+  'Лечение: витальная или девитальная экстирпация; при гангренозном — тщательная антисептика и гидроксид кальция.']],
+ 25:[5,'Хронический гранулематозный периодонтит',[
+  'Клиника: чаще бессимптомно, ЭОД больше 100 мкА.',
+  'Рентген: округлый очаг с чёткими контурами: до 0,5 см — гранулёма, 0,5–1 см — кистогранулёма, больше 1 см — киста.',
+  'Дифдиагностика: другие формы периодонтита, радикулярная киста, анатомические отверстия на снимке.',
+  'Лечение: эндодонтия + длительно гидроксид кальция (до 3–6 мес), потом пломбирование; при кисте — резекция верхушки.']],
+ 26:[2,'Гипоплазия эмали и дентина',[
+  'Виды: системная (болезни матери и ребёнка), местная (зуб Тёрнера), очаговая.',
+  'Формы: пятнистая, эрозивная, бороздчатая, аплазия; при сифилисе — зубы Гетчинсона, Фурнье, Пфлюгера.',
+  'Дентин: несовершенный дентиногенез (синдром Стентона–Капдепона).',
+  'Дифдиагностика: кариес пятна, флюороз. Лечение: микроабразия, отбеливание, реставрации, виниры, коронки.']],
+ 27:[7,'Импрегнационные методы лечения',[
+  'Показания: непроходимые и облитерированные каналы, апикальные дельты, отломок инструмента.',
+  'Методы: резорцин-формалиновый (зуб розовеет), серебрение (темнеет), депофорез гидроксида меди-кальция, электрофорез йода.',
+  'Плюсы: можно сохранить зуб, просто. Минусы: окрашивание, токсичность, трудно перелечивать.']],
+ 28:[1,'Кариес в стадии пятна',[
+  'Жалоб обычно нет.',
+  'Объективно: меловидное матовое пятно, гладкое, окрашивается метиленовым синим; ЭОД 2–6 мкА.',
+  'Дифдиагностика: флюороз, гипоплазия, поверхностный кариес.',
+  'Лечение: реминерализация (глюконат кальция, ремодент, фторид натрия, фторлак), инфильтрация ICON.']],
+ 29:[2,'Травматические поражения зубов',[
+  'Виды: ушиб, вывих (неполный, вколоченный, полный), перелом коронки (эмаль; дентин; со вскрытием пульпы), перелом корня.',
+  'Ушиб: покой, контроль ЭОД. Вывих: репозиция и шина на 2–4 недели; полный — реплантация.',
+  'Перелом коронки со вскрытием пульпы: в первые часы — покрытие или пульпотомия, позже — экстирпация.',
+  'Перелом корня: апикальная треть — шина и наблюдение; пришеечная — штифт или удаление; продольный — удаление.']],
+ 30:[2,'Клиновидный дефект',[
+  'Причины: жёсткая щётка, абфракция (перегрузка), рецессия десны, эндокринные нарушения.',
+  'Клиника: клин у шейки клыков и премоляров, стенки гладкие, блестящие, не окрашиваются.',
+  'Дифдиагностика: пришеечный кариес, эрозия, некроз.',
+  'Лечение: мягкая щётка, десенситайзеры; пломбирование СИЦ, компомером, текучим композитом.']],
+ 31:[5,'Хронический фиброзный периодонтит',[
+  'Жалоб нет, зуб может быть изменён в цвете; ЭОД больше 100 мкА.',
+  'Рентген: равномерное расширение щели без разрушения кости.',
+  'Дифдиагностика: средний и глубокий кариес, хронический гангренозный пульпит.',
+  'Лечение: канал не лечён — эндодонтия; запломбирован качественно — наблюдение.']],
+ 32:[1,'Поверхностный кариес',[
+  'Жалобы: кратковременная боль от сладкого и кислого.',
+  'Объективно: дефект в пределах эмали, шероховатость, ЭОД 2–6 мкА.',
+  'Дифдиагностика: кариес пятна, средний кариес, эрозия, гипоплазия, клиновидный дефект.',
+  'Лечение: сошлифовка и реминерализация или пломбирование.']],
+ 33:[1,'Ошибки и осложнения при лечении кариеса',[
+  'Диагностика: пропущенная полость, неверный диагноз без ЭОД и рентгена.',
+  'Препарирование: вскрытие рога пульпы, перегрев, оставленный размягчённый дентин, перфорация, ранение мягких тканей.',
+  'Пломбирование: нет прокладки, ошибки адгезии, усадка, нависающий край, нет контактного пункта, завышение прикуса.',
+  'Отдалённые: вторичный кариес, пульпит, периодонтит.']],
+ 34:[8,'Материалы для обтурации корневых каналов',[
+  'Требования Гроссмана: герметичность, без усадки, рентгеноконтрастность, биосовместимость, не окрашивает зуб, легко удаляется.',
+  'Нетвердеющие: пасты с гидроксидом кальция. Силеры: цинк-эвгенольные, эпоксидные (AH Plus), с гидроксидом кальция, СИЦ, силиконовые, биокерамические.',
+  'Штифты: гуттаперча стандартная 2% и конусная 4–6%, гуттаперча на носителе (Thermafil). Штифт всегда ставят с силером.']],
+ 35:[5,'Острый верхушечный периодонтит',[
+  'Серозная фаза: постоянная локализованная боль при накусывании. Гнойная: пульсирующая боль, «вырос зуб», отёк, температура.',
+  'Объективно: перкуссия резко болезненна, на температуру реакции нет, ЭОД больше 100 мкА, на рентгене изменений нет.',
+  'Дифдиагностика: острый диффузный пульпит, обострение хронического периодонтита, периостит, остеомиелит.',
+  'Лечение: раскрыть, обработать, обеспечить отток через канал, гидроксид кальция, потом пломбирование; НПВС.']],
+ 36:[3,'Хронический гипертрофический пульпит',[
+  'Жалобы: кровоточивость и боль при еде, «мясо» в зубе.',
+  'Объективно: полип пульпы в полости, ЭОД 40–60 мкА; рентген — исключить перфорацию дна.',
+  'Дифдиагностика: полип пульпы, разрастание десневого сосочка, грануляции из перфорации дна.',
+  'Лечение: иссечь полип → экстирпация пульпы.']],
+ 37:[1,'Глубокий кариес',[
+  'Жалобы: боль от всех раздражителей, проходит сразу после устранения.',
+  'Объективно: зондирование болезненно равномерно по всему дну, ЭОД до 10–12 мкА.',
+  'Дифдиагностика: средний кариес, острый очаговый пульпит, хронический фиброзный пульпит, хронический периодонтит.',
+  'Лечение: лечебная прокладка (гидроксид кальция, МТА) + СИЦ + пломба; при сомнении — в два этапа.']],
+ 38:[3,'Острый очаговый пульпит',[
+  'Жалобы: короткие самопроизвольные приступы 10–30 мин, длинные паузы, зуб пациент указывает точно.',
+  'Объективно: зондирование болезненно в одной точке, от холода долгая боль, ЭОД 15–20 мкА.',
+  'Дифдиагностика: глубокий кариес, диффузный пульпит, обострение хронического, папиллит.',
+  'Лечение: биологический метод, витальная ампутация или экстирпация. Осложнения: переход в диффузный или хронический, некроз.']],
+ 39:[6,'Апикально-корональные методы обработки каналов',[
+  'Принцип: сначала апикальная часть на полную длину, потом расширение к устью.',
+  'Стандартная техника (Ingle): все инструменты на полную длину; подходит только для прямых каналов.',
+  'Step-back: мастер-файл на рабочую длину, каждый следующий на 1 мм короче, рекапитуляция и ирригация.',
+  'Минусы: выталкивание дебриса за верхушку, пробки из опилок, уступы, изменение рабочей длины.']],
+ 40:[4,'Витальные методы лечения пульпита',[
+  'Витальная ампутация: удалить коронковую пульпу, сохранить корневую; очаговый и фиброзный пульпит в многокорневых зубах у молодых.',
+  'Витальная экстирпация: удалить всю пульпу под анестезией и запломбировать каналы, обычно в одно посещение; любые формы пульпита.',
+  'Осложнения: остатки пульпы, кровотечение, перфорация, отлом инструмента, выведение материала за верхушку.']]
+};
+T[24] = [7, 'Антисептики для обработки корневых каналов', ['Тот же вопрос, что билет 17.'].concat(T[17][2])];
+
+const WEEKS = [
+  {t:'Кариес', n:[22,15,28,32,5,37,33]},
+  {t:'Некариозные поражения', n:[1,2,26,30,18,8,11,29]},
+  {t:'Пульпа и пульпиты', n:[3,38,6,16,13,36,23]},
+  {t:'Лечение пульпита и периодонтиты', n:[20,40,14,4,35,31,9,25]},
+  {t:'Каналы, ирригация, пломбирование', n:[7,10,39,19,17,21,24,27,34,12]},
+  {t:'Финальный повтор', n:[5,15,22,28,32,33,37,1,2,8,11,18,26,29,30,3,6,13,16,23,36,38,14,20,40,4,9,25,31,35,7,10,19,39,17,21,24,27,12,34]}
+];
+
+const DX = {
+  pulp:{ name:'Кариес → пульпит → периодонтит',
+    labels:['Жалобы','Зондирование','Температура','Перкуссия','ЭОД','Рентген'],
+    rows:[
+      ['Кариес в стадии пятна','жалоб нет','гладко, зонд скользит','безболезненно','безболезненна','2–6 мкА','норма','нет дефекта, пятно окрашивается метиленовым синим'],
+      ['Поверхностный кариес','кратковременная боль от сладкого и кислого','шероховатость в пределах эмали','безболезненно','безболезненна','2–6 мкА','норма','дефект только в эмали, боль от химических раздражителей'],
+      ['Средний кариес','кратковременная боль от раздражителей, проходит сразу','болезненно по эмалево-дентинной границе','кратковременная боль или нет','безболезненна','2–6 мкА','полость не доходит до пульпы','болезненность по эмалево-дентинной границе'],
+      ['Глубокий кариес','боль от всех раздражителей, проходит сразу','болезненно равномерно по всему дну','от холода боль, быстро проходит','безболезненна','до 10–12 мкА','норма','боль проходит сразу, болезненно по всему дну'],
+      ['Острый очаговый пульпит','самопроизвольные короткие приступы, длинные паузы, зуб указывает точно','болезненно в одной точке','от холода долгая боль','безболезненна','15–20 мкА','норма','самопроизвольная боль и болезненность в одной точке'],
+      ['Острый диффузный пульпит','долгие приступы, короткие паузы, иррадиация, ночью сильнее','болезненно по всему дну','тепло усиливает боль, холод успокаивает','слабо болезненна или нет','20–45 мкА','норма или расширение щели','иррадиация по тройничному нерву, холод успокаивает'],
+      ['Хронический фиброзный пульпит','ноющая боль от холодного, долго не проходит','болезненно в точке сообщения, кровоточит','долгая ноющая боль от холода','безболезненна','35–50 мкА','иногда расширение щели','сообщение с полостью зуба, кровоточит, ЭОД 35–50'],
+      ['Хронический гангренозный пульпит','ноющая боль от горячего, запах изо рта','поверхностно безболезненно, в устьях каналов болезненно','боль от горячего','безболезненна','60–90 мкА','расширение периодонтальной щели','запах, боль от горячего, боль только при глубоком зондировании'],
+      ['Хронический гипертрофический пульпит','кровоточивость и боль при еде','разросшаяся ткань в полости, кровоточит','слабая реакция','безболезненна','40–60 мкА','исключить перфорацию дна','полип пульпы растёт из полости зуба'],
+      ['Острый верхушечный периодонтит','постоянная локализованная боль, «вырос зуб»','безболезненно','нет реакции','резко болезненна','больше 100 мкА','норма или слабое расширение щели','резко болезненная перкуссия, а очага на рентгене ещё нет'],
+      ['Хронический фиброзный периодонтит','жалоб нет','безболезненно','нет реакции','безболезненна','больше 100 мкА','равномерное расширение щели, без разрушения кости','на рентгене только расширение щели'],
+      ['Хронический гранулирующий периодонтит','тяжесть, дискомфорт, периодически свищ','безболезненно','нет реакции','слабо болезненна или нет','больше 100 мкА','очаг с нечёткими неровными контурами','очаг «языками пламени» и свищ'],
+      ['Хронический гранулематозный периодонтит','жалоб чаще нет','безболезненно','нет реакции','безболезненна','больше 100 мкА','округлый очаг с чёткими контурами','округлый очаг с чёткими ровными краями']
+    ]},
+  spots:{ name:'Белые пятна',
+    labels:['Когда появились','Где','Сколько','Поверхность','Метиленовый синий','Анамнез'],
+    rows:[
+      ['Кариес в стадии пятна','после прорезывания','пришеечно, в фиссурах, на контактных поверхностях','единичные','матовая','окрашивается','много сладкого, плохая гигиена','пятно окрашивается метиленовым синим'],
+      ['Флюороз','с момента прорезывания','любые участки, включая «иммунные» зоны','множественные, симметричные','блестящая или матовая','не окрашивается','в детстве жила там, где в воде много фтора','эндемичный район и множественные симметричные пятна'],
+      ['Системная гипоплазия эмали','с момента прорезывания','зубы одного периода минерализации, на одном уровне','множественные, симметричные','блестящая','не окрашивается','болезни матери при беременности и ребёнка в раннем детстве','пятна на одном уровне у зубов одного периода']
+    ]},
+  neck:{ name:'Дефекты у шейки',
+    labels:['Форма и место','Дно и стенки','Окрашивание','Анамнез'],
+    rows:[
+      ['Пришеечный кариес','неправильная форма, у самой десны','шероховатые, размягчённый пигментированный дентин','окрашивается','плохая гигиена, много сладкого','размягчённый дентин, окрашивается'],
+      ['Клиновидный дефект','клин у шейки клыков и премоляров','гладкие, блестящие, плотные','не окрашивается','жёсткая щётка, горизонтальная чистка, перегрузка','форма клина и гладкие стенки'],
+      ['Эрозия эмали','овал на самой выпуклой части коронки','гладкое блестящее дно','не окрашивается','кислые соки, рефлюкс, тиреотоксикоз','овальный дефект на выпуклой части коронки'],
+      ['Некроз твёрдых тканей','меловидные участки у шейки по кругу или с режущего края','размягчённые, пигментированные','окрашивается','пары кислот на работе, эндокринные болезни, облучение','профвредность или эндокринная патология в анамнезе']
+    ]}
+};
+
+/* ---------- Иконки ---------- */
+const P = {
+  home:'<path d="M4 11l8-6 8 6v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/>',
+  cards:'<rect x="5" y="7" width="14" height="13" rx="3"/><path d="M8 4h8M9 12h6M9 15.5h4"/>',
+  target:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/>',
+  chart:'<path d="M5 20V12M10 20V6M15 20v-9M20 20V9"/>',
+  back:'<path d="M15 5l-7 7 7 7"/>',
+  arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',
+  search:'<circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/>',
+  cal:'<rect x="4" y="5.5" width="16" height="14" rx="3"/><path d="M8 3.5v4M16 3.5v4M4 10h16"/>',
+  book:'<path d="M5 5.5A2.5 2.5 0 0 1 7.5 3H19v15H7.5A2.5 2.5 0 0 0 5 20.5z"/><path d="M5 20.5A2.5 2.5 0 0 1 7.5 18H19v3H7.5"/>',
+  phone:'<rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M11 17.5h2"/>',
+  cloud:'<path d="M7 18h10a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.2 9.6 4.2 4.2 0 0 0 7 18z"/>',
+  reset:'<path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4.5 4.5v3.7h3.7"/>',
+  x:'<path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/>',
+  check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+  eye:'<path d="M2.5 12s3.6-6.5 9.5-6.5 9.5 6.5 9.5 6.5-3.6 6.5-9.5 6.5S2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/>',
+  doc:'<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/>',
+  sliders:'<path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/>',
+  bolt:'<path d="M13 3L5 13.5h6L10 21l9-11h-6z"/>',
+  user:'<circle cx="12" cy="8.5" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/>'
+};
+const SPARK = '<svg viewBox="0 0 24 24" class="ic f"><path d="M11 2.5c.6 4.6 2 6 6.5 6.6-4.5.6-5.9 2-6.5 6.6-.6-4.6-2-6-6.5-6.6 4.5-.6 5.9-2 6.5-6.6z"/><path d="M18.5 14c.3 2.1.9 2.7 3 3-2.1.3-2.7.9-3 3-.3-2.1-.9-2.7-3-3 2.1-.3 2.7-.9 3-3z"/></svg>';
+const PLAY = '<svg viewBox="0 0 24 24" class="ic f"><path d="M8 5.5l11 6.5-11 6.5z"/></svg>';
+function I(name){ return '<svg viewBox="0 0 24 24" class="ic">'+P[name]+'</svg>'; }
+// Аватар: первая буква имени (или звёздочка, если имя не задано) и знак приложения
+function initialHTML(){ const n = (state.name || '').trim(); return n ? esc(n[0].toUpperCase()) : SPARK; }
+const LOGO = '<span class="ava sm logo" aria-hidden="true">'+SPARK+'</span>';
+// Медальон: номер билета на цвете раздела и кольцо прогресса по краю
+const RING = 2 * Math.PI * 46;
+function medalHTML(inner, bg, frac){
+  return '<div class="medal-wrap"><div class="medal"><svg class="ring" viewBox="0 0 100 100" aria-hidden="true">'
+    + '<circle cx="50" cy="50" r="46" fill="none" style="stroke:var(--line)" stroke-width="3.5"/>'
+    + '<circle cx="50" cy="50" r="46" fill="none" style="stroke:var(--violet)" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="'+RING.toFixed(2)+'" stroke-dashoffset="'+(RING*(1-frac)).toFixed(2)+'"/>'
+    + '</svg><div class="medal-in" style="background:'+bg+'">'+inner+'</div></div></div>';
+}
+
+/* ---------- Утилиты ---------- */
+const $ = s => document.querySelector(s);
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function pad(n){ return String(n).padStart(2,'0'); }
+function iso(d){ return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+function today(){ return iso(new Date()); }
+function parse(s){ const [y,m,d] = s.split('-').map(Number); return {y,m,d}; }
+function toDate(s){ const p = parse(s); return new Date(p.y, p.m-1, p.d); }
+function addDays(s,n){ const p = parse(s); return iso(new Date(p.y, p.m-1, p.d+n)); }
+function daysBetween(a,b){ const A = parse(a), B = parse(b); return Math.round((Date.UTC(B.y,B.m-1,B.d) - Date.UTC(A.y,A.m-1,A.d)) / 864e5); }
+const MONTHS = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+const WD_SHORT = ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
+function human(s){ const p = parse(s); return p.d+' '+MONTHS[p.m-1]; }
+function pl(n, f){ n = Math.abs(n) % 100; const n1 = n % 10; if (n > 10 && n < 20) return f[2]; if (n1 > 1 && n1 < 5) return f[1]; if (n1 === 1) return f[0]; return f[2]; }
+function shuffle(a){ for (let i = a.length-1; i > 0; i--){ const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]] = [a[j],a[i]]; } return a; }
+function chunks(arr, k){ const out = [], base = Math.floor(arr.length/k), extra = arr.length % k; let p = 0; for (let i = 0; i < k; i++){ const size = base + (i < extra ? 1 : 0); out.push(arr.slice(p, p+size)); p += size; } return out; }
+function point(p){ return esc(p).replace(/^([^:]{2,34}):/, '<b>$1:</b>'); }
+function greet(){ const h = new Date().getHours(); return h < 5 ? 'Доброй ночи' : h < 12 ? 'Доброе утро' : h < 17 ? 'Добрый день' : h < 23 ? 'Добрый вечер' : 'Доброй ночи'; }
+const ALL = Object.keys(T).map(Number).sort((a,b)=>a-b);
+
+/* ---------- Состояние и сохранение ---------- */
+function defaultState(){ return {v:1, updatedAt:0, name:NAME, examDate:DEFAULT_EXAM, cards:{}, days:[], dx:{ok:0,total:0,miss:{}}}; }
+const IN_CLAUDE = !!(window.claude && typeof window.claude.use === 'function');
+function load(){ try { const s = JSON.parse(localStorage.getItem(LS) || 'null'); if (s && s.v === 1) return Object.assign(defaultState(), s); } catch(e){} return defaultState(); }
+let state = load();
+let remote = null, saveTimer = null, saving = false, pending = false, syncMode = 'local';
+
+function commit(){
+  state.updatedAt = Date.now();
+  try { localStorage.setItem(LS, JSON.stringify(state)); } catch(e){}
+  if (remote){ clearTimeout(saveTimer); saveTimer = setTimeout(flush, 1200); }
+}
+async function flush(){
+  if (!remote) return;
+  if (saving){ pending = true; return; }
+  saving = true;
+  try { await remote.set(JSON.parse(JSON.stringify(state))); syncMode = 'cloud'; }
+  catch(e){
+    if (e && e.code === 'unavailable'){ setTimeout(flush, 1500 + Math.random()*1500); }
+    else { remote = null; syncMode = 'local'; }
+  } finally {
+    saving = false;
+    if (pending){ pending = false; flush(); }
+    updateSyncLabel();
+  }
+}
+async function connect(){
+  if (!window.claude || typeof window.claude.use !== 'function') return;
+  try {
+    const [db, user] = await Promise.all([window.claude.use('db'), window.claude.use('user')]);
+    if (!db || !user) return;
+    const id = await user.id();
+    if (!id) return;
+    const ref = db.doc('data/users/' + id + '/progress');
+    let first = true;
+    ref.onSnapshot(snap => {
+      const d = snap.exists ? snap.data() : null;
+      if (d && (d.updatedAt || 0) > (state.updatedAt || 0)){
+        state = Object.assign(defaultState(), JSON.parse(JSON.stringify(d)));
+        try { localStorage.setItem(LS, JSON.stringify(state)); } catch(e){}
+        render();
+      }
+      if (first){
+        first = false; remote = ref; syncMode = 'cloud';
+        if (state.updatedAt && (!d || (d.updatedAt || 0) < state.updatedAt)){ clearTimeout(saveTimer); saveTimer = setTimeout(flush, 600); }
+        updateSyncLabel();
+      }
+    }, () => { remote = null; syncMode = 'local'; updateSyncLabel(); });
+  } catch(e){}
+}
+function updateSyncLabel(){
+  const el = document.getElementById('sync');
+  if (!el) return;
+  el.textContent = syncMode === 'cloud'
+    ? 'Прогресс хранится в аккаунте claude.ai — одинаковый на телефоне и компьютере'
+    : IN_CLAUDE
+      ? 'Прогресс хранится только на этом устройстве. Войди в claude.ai, чтобы он сохранялся в аккаунте'
+      : 'Прогресс хранится в браузере на этом устройстве. Не очищай данные сайта, иначе он сотрётся';
+}
+
+/* ---------- Логика плана и карточек ---------- */
+function card(n){ return state.cards[n] || {b:0, due:'', seen:0}; }
+function status(n){ const c = state.cards[n]; if (!c || !c.seen) return ['new','Новый']; if (c.b === 0) return ['learn','Учу']; if (c.b < 3) return ['rep','Повторяю']; return ['ok','Знаю']; }
+function countKnown(){ return ALL.filter(n => card(n).b >= 3).length; }
+function dueList(t){ return ALL.filter(n => { const c = state.cards[n]; return c && c.seen && c.due && c.due <= t; }).sort((a,b) => card(a).due.localeCompare(card(b).due)); }
+function grade(n, ok){
+  const c = Object.assign({}, card(n));
+  c.seen = (c.seen || 0) + 1;
+  if (ok){ c.b = Math.min((c.b || 0) + 1, 5); c.due = addDays(today(), [0,1,3,7,14,30][c.b]); }
+  else { c.b = 0; c.due = today(); }
+  state.cards[n] = c;
+}
+function markActive(){ const t = today(); if (!state.days.includes(t)){ state.days.push(t); state.days = state.days.slice(-150); } }
+function streak(){
+  const set = new Set(state.days); let d = today(), s = 0;
+  if (!set.has(d)) d = addDays(d, -1);
+  while (set.has(d)){ s++; d = addDays(d, -1); }
+  return s;
+}
+function weakTickets(){ const w = ALL.filter(n => card(n).b <= 1); return w.length ? w : dueList(today()); }
+function dayInfo(t){
+  const idx = daysBetween(START, t);
+  if (idx < 0) return {kind:'before', week:-1, wait:-idx, tickets:chunks(WEEKS[0].n,5)[0]};
+  const week = Math.floor(idx/7), dow = idx % 7;
+  if (week >= 6) return {kind:'after', week:6, tickets:weakTickets()};
+  if (dow < 5) return {kind: week === 5 ? 'final' : 'study', week, day:dow, tickets:chunks(WEEKS[week].n,5)[dow]};
+  if (dow === 5) return {kind:'review', week, tickets: week === 5 ? weakTickets() : WEEKS[week].n.slice()};
+  return {kind:'rest', week, tickets:[]};
+}
+
+/* ---------- Навигация ---------- */
+const TABS = ['today','tickets','trainer','progress'];
+let tab = TABS.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'today';
+let secFilter = 0, query = '', resetAsk = false, showInstall = false;
+let session = null;
+let dxSet = 'pulp', dxCase = null, dxRun = {ok:0, total:0};
+
+function go(t){ tab = t; resetAsk = false; try { history.replaceState(null, '', '#'+t); } catch(e){} render(); window.scrollTo(0,0); }
+
+/* ---------- Экран «Сегодня» ---------- */
+function todayView(){
+  const t = today(), info = dayInfo(t), dl = daysBetween(t, state.examDate);
+  const head = dl > 0 ? greet()+'!<br>До экзамена '+dl+' '+pl(dl,['день','дня','дней']) : dl === 0 ? 'Сегодня экзамен.<br>Ты готова!' : greet()+'!<br>Экзамен позади';
+  let sub, taskTitle, taskSub;
+  const n = info.tickets.length, nb = n+' '+pl(n,['билет','билета','билетов']);
+  if (info.kind === 'before'){ sub = info.wait === 1 ? 'План стартует завтра, в понедельник' : 'План стартует через '+info.wait+' '+pl(info.wait,['день','дня','дней']); taskTitle = 'Разминка перед стартом'; taskSub = 'Можно начать уже сегодня · '+nb; }
+  else if (info.kind === 'after'){ sub = 'Шесть недель плана пройдены'; taskTitle = 'Слабые билеты'; taskSub = nb; }
+  else {
+    sub = 'Неделя '+(info.week+1)+' из 6 · '+WEEKS[info.week].t;
+    if (info.kind === 'study'){ taskTitle = 'Новые билеты на сегодня'; taskSub = 'День '+(info.day+1)+' · '+nb; }
+    if (info.kind === 'final'){ taskTitle = 'Финальный прогон'; taskSub = 'Ответь вслух · '+nb; }
+    if (info.kind === 'review'){ taskTitle = info.week === 5 ? 'Только слабые билеты' : 'Повтор всей недели'; taskSub = 'Суббота · '+nb; }
+    if (info.kind === 'rest'){ taskTitle = 'Сегодня отдых'; taskSub = 'Воскресенье. Можно просто повторить карточки'; }
+  }
+  const due = dueList(t);
+  const topics = info.tickets.map(k => {
+    const s = T[k][0];
+    return '<article class="topic"><div class="topic-num" style="color:var(--s'+s+'i)">Билет '+k+'</div><h4 class="clamp">'+esc(T[k][1])+'</h4><p class="muted small clamp">'+esc(T[k][2][0])+'</p><button class="pill-btn grey" data-act="study-today-at" data-n="'+k+'">Учить</button></article>';
+  }).join('');
+  const weekPills = WEEKS.map((w,i) => {
+    const cls = i < info.week ? 'past' : i === info.week ? 'now' : '';
+    const d = parse(addDays(START, i*7));
+    return '<div class="dpill '+cls+'">Нед<b>'+(i+1)+'</b>'+d.d+'.'+pad(d.m)+'</div>';
+  }).join('');
+  return `
+  <header class="topbar">
+    <div class="who"><span class="ava initial" aria-hidden="true">${initialHTML()}</span><div><div class="muted small">${state.name ? 'Привет, '+esc(state.name) : 'Привет!'}</div><div class="who-name">С возвращением</div></div></div>
+    <button class="round" data-act="go" data-tab="progress" aria-label="Открыть прогресс">${I('cal')}</button>
+  </header>
+  <h1 class="headline">${head}</h1>
+  <p class="sub">${esc(sub)}</p>
+  <div class="feat">
+    <article class="tile big">
+      <span class="ichip">${I('cards')}</span>
+      <div><h3>${esc(taskTitle)}</h3><p class="muted small" style="margin-top:6px">${esc(taskSub)}</p></div>
+      ${n ? '<button class="pill-btn violet wide" data-act="study-today">Начать</button>' : (due.length ? '<button class="pill-btn violet wide" data-act="study-due">Повторить</button>' : '<button class="pill-btn grey wide" data-act="go" data-tab="tickets">Все билеты</button>')}
+    </article>
+    <div class="col">
+      <button class="tile" data-act="${due.length ? 'study-due' : 'go'}" data-tab="tickets">
+        <div class="tile-row"><span class="ichip">${I('reset')}</span><span class="go">${I('arrow')}</span></div>
+        <h3>Повторение</h3>
+        <p class="muted small">${due.length ? due.length+' '+pl(due.length,['карточка ждёт','карточки ждут','карточек ждут']) : 'Пока нечего повторять'}</p>
+      </button>
+      <button class="tile" data-act="go" data-tab="trainer">
+        <div class="tile-row"><span class="ichip">${I('target')}</span><span class="go">${I('arrow')}</span></div>
+        <h3>Тренажёр</h3>
+        <p class="muted small">Поставь диагноз по признакам</p>
+      </button>
+    </div>
+  </div>
+  ${n ? '<div class="sec-head"><h2>Билеты на сегодня</h2><button data-act="go" data-tab="tickets">Все билеты</button></div><div class="topics">'+topics+'</div>' : ''}
+  <article class="card">
+    <div class="sec-head"><h3>План на 6 недель</h3><span class="muted small">Серия: ${streak()} ${pl(streak(),['день','дня','дней'])}</span></div>
+    <div class="strip">${weekPills}</div>
+  </article>`;
+}
+
+/* ---------- Экран «Билеты» ---------- */
+function filtered(){
+  const q = query.trim().toLowerCase();
+  return ALL.filter(n => (!secFilter || T[n][0] === secFilter) && (!q || String(n) === q || T[n][1].toLowerCase().includes(q) || T[n][2].join(' ').toLowerCase().includes(q)));
+}
+function ticketTiles(){
+  const list = filtered();
+  if (!list.length) return '<div class="empty muted">Ничего не нашлось. Попробуй номер билета или другое слово.</div>';
+  return list.map(n => {
+    const s = T[n][0], st = status(n);
+    return '<button class="ntile" style="background:var(--s'+s+')" data-act="study-one" data-n="'+n+'"><span class="nt-head"><span class="ichip w">'+I('doc')+'</span><span class="nt-label" style="color:var(--s'+s+'i)">Билет '+n+'</span></span><span class="nt-title">'+esc(T[n][1])+'</span><span class="nt-meta">'+esc(SECTIONS[s-1].name)+'</span><span class="nt-go"><span class="pill '+st[0]+'">'+st[1]+'</span>'+I('arrow')+'</span></button>';
+  }).join('');
+}
+function ticketsView(){
+  const chips = '<button class="chip" data-act="filter" data-sec="0" aria-pressed="'+(secFilter===0)+'">Все</button>' + SECTIONS.map(s => '<button class="chip" data-act="filter" data-sec="'+s.id+'" aria-pressed="'+(secFilter===s.id)+'">'+esc(s.name)+'</button>').join('');
+  const cnt = filtered().length;
+  return `
+  <header class="topbar center">
+    ${LOGO}
+    <h2 class="bar-title">Билеты</h2>
+    <button class="round" data-act="go" data-tab="progress" aria-label="Открыть прогресс">${I('chart')}</button>
+  </header>
+  <div class="search">
+    <label class="search-box">${I('search')}<input id="q" type="search" value="${esc(query)}" placeholder="Номер или слово" autocomplete="off" aria-label="Поиск по билетам"></label>
+    <button class="sq" data-act="study-list" aria-label="Учить все найденные билеты">${PLAY}</button>
+  </div>
+  <div class="chips" role="group" aria-label="Разделы">${chips}</div>
+  <div class="sec-head"><h2>${secFilter ? esc(SECTIONS[secFilter-1].name) : 'Все билеты'}</h2><span class="muted small" id="cnt">${cnt}</span></div>
+  <div class="tiles" id="tlist">${ticketTiles()}</div>
+  <div class="sticky"><button class="ink-btn" data-act="study-list">${SPARK}<span id="cta">Учить карточки · ${cnt}</span></button></div>`;
+}
+
+/* ---------- Экран «Тренажёр» ---------- */
+function newCase(){
+  const rows = DX[dxSet].rows;
+  let i;
+  do { i = Math.floor(Math.random()*rows.length); } while (rows.length > 1 && dxCase && dxCase.set === dxSet && i === dxCase.i);
+  let pool = rows.map((r,j) => j).filter(j => j !== i);
+  if (dxSet === 'pulp'){ pool.sort((a,b) => Math.abs(a-i) - Math.abs(b-i)); pool = pool.slice(0,5); }
+  shuffle(pool);
+  dxCase = {set:dxSet, i, opts:shuffle([i].concat(pool.slice(0,3))), picked:null};
+}
+function trainerView(){
+  if (!dxCase || dxCase.set !== dxSet) newCase();
+  const set = DX[dxSet], row = set.rows[dxCase.i];
+  const chips = Object.keys(DX).map(k => '<button class="chip" data-act="dx-set" data-set="'+k+'" aria-pressed="'+(dxSet===k)+'">'+esc(DX[k].name)+'</button>').join('');
+  const facts = set.labels.map((l,j) => '<dt>'+esc(l)+'</dt><dd>'+esc(row[j+1])+'</dd>').join('');
+  const answered = dxCase.picked !== null, ok = dxCase.picked === dxCase.i;
+  const bot = (html, ghost) => '<div class="msg"><span class="bot-ava'+(ghost?' ghost':'')+'">'+SPARK+'</span><div class="bubble">'+html+'</div></div>';
+  let tail;
+  if (!answered){
+    tail = '<div class="choices" role="group" aria-label="Варианты диагноза">' + dxCase.opts.map(j => '<button class="choice" data-act="dx-pick" data-i="'+j+'">'+esc(set.rows[j][0])+'</button>').join('') + '</div>';
+  } else {
+    tail = '<div class="msg me"><div class="bubble">'+esc(set.rows[dxCase.picked][0])+'</div></div>'
+      + bot(ok ? '<p><b class="verdict-ok">Верно!</b> Это '+esc(row[0].toLowerCase())+'.</p>' : '<p><b class="verdict-no">Не совсем.</b> Это '+esc(row[0].toLowerCase())+'.</p>')
+      + bot('<h4>Главный признак</h4><p>'+esc(row[row.length-1][0].toUpperCase()+row[row.length-1].slice(1))+'.</p>', true);
+  }
+  return `
+  <header class="topbar center">
+    <button class="round" data-act="go" data-tab="today" aria-label="На главный экран">${I('back')}</button>
+    <h2 class="bar-title">Тренажёр</h2>
+    <button class="round" data-act="dx-next" aria-label="Другой случай">${I('reset')}</button>
+  </header>
+  <div class="chips" role="group" aria-label="Набор случаев">${chips}</div>
+  ${dxRun.total ? '<div class="score">Верно '+dxRun.ok+' из '+dxRun.total+'</div>' : ''}
+  <div class="chat">
+    ${bot('<p>Новый пациент. Посмотри на признаки и выбери диагноз.</p>')}
+    ${bot('<h4>Клинический случай</h4><dl>'+facts+'</dl>', true)}
+    ${tail}
+  </div>
+  <div class="composer">
+    <div class="fake${answered ? ' on' : ''}">${answered ? 'Следующий случай' : 'Выбери диагноз выше'}</div>
+    <button class="sq" data-act="dx-next" aria-label="Следующий случай"${answered ? '' : ' disabled style="opacity:.5"'}>${I('arrow')}</button>
+  </div>`;
+}
+
+/* ---------- Экран «Прогресс» ---------- */
+function progressView(){
+  const t = today(), dl = daysBetween(t, state.examDate);
+  const counts = {ok:0, rep:0, learn:0, new:0};
+  ALL.forEach(n => counts[status(n)[0]]++);
+  const seg = (k, color) => counts[k] ? '<span style="width:'+(counts[k]/40*100)+'%;background:'+color+'"></span>' : '';
+  const acc = state.dx.total ? Math.round(state.dx.ok/state.dx.total*100) : null;
+  const miss = Object.entries(state.dx.miss || {}).sort((a,b) => b[1]-a[1]).slice(0,3);
+  const days = new Set(state.days);
+  const strip = [5,4,3,2,1,0].map(k => {
+    const d = addDays(t, -k), cls = k === 0 ? 'now' : days.has(d) ? 'past' : '';
+    return '<div class="dpill '+cls+'">'+WD_SHORT[toDate(d).getDay()]+'<b>'+parse(d).d+'</b>'+(days.has(d) ? '✓' : '·')+'</div>';
+  }).join('');
+  const secRows = SECTIONS.map(s => {
+    const ns = ALL.filter(n => T[n][0] === s.id), k = ns.filter(n => card(n).b >= 3).length;
+    return '<div class="secrow"><span>'+esc(s.name)+'</span><span class="muted">'+k+' / '+ns.length+'</span><div class="bar"><span style="width:'+(k/ns.length*100)+'%;background:var(--s'+s.id+'i)"></span></div></div>';
+  }).join('');
+  const st = streak();
+  const examLine = dl > 0 ? 'Экзамен '+human(state.examDate)+' · через '+dl+' '+pl(dl,['день','дня','дней']) : dl === 0 ? 'Экзамен сегодня' : 'Экзамен был '+human(state.examDate);
+  return `
+  <header class="topbar center">
+    ${LOGO}
+    <h2 class="bar-title">Прогресс</h2>
+    <button class="round" data-act="to-settings" aria-label="К настройкам">${I('sliders')}</button>
+  </header>
+  <article class="card profile">
+    <div class="ava-big" aria-hidden="true">${initialHTML()}</div>
+    <div><p class="pname">${esc(state.name || 'Мой прогресс')}</p><p class="muted small" style="margin:2px 0 0">${esc(examLine)}</p></div>
+    <div class="strip" style="width:100%">${strip}</div>
+  </article>
+  <article class="card">
+    <div class="sec-head"><h3>Знаешь ${counts.ok} из 40</h3><span class="muted small">три «Знаю» подряд</span></div>
+    <div class="stack">${seg('ok','var(--good)')}${seg('rep','var(--violet)')}${seg('learn','var(--bad)')}</div>
+    <div class="legend"><span><i style="background:var(--good)"></i>Знаю ${counts.ok}</span><span><i style="background:var(--violet)"></i>Повторяю ${counts.rep}</span><span><i style="background:var(--bad)"></i>Учу ${counts.learn}</span><span><i style="background:var(--line)"></i>Новые ${counts.new}</span></div>
+  </article>
+  <div class="two">
+    <article class="card"><div class="label">Серия</div><div class="big">${st}</div><p class="muted small" style="margin:0">${pl(st,['день','дня','дней'])} подряд · всего ${state.days.length}</p></article>
+    <article class="card"><div class="label">Тренажёр</div><div class="big">${acc === null ? '—' : acc+'%'}</div><p class="muted small" style="margin:0">${state.dx.total ? 'верно '+state.dx.ok+' из '+state.dx.total : 'ещё не было случаев'}</p></article>
+  </div>
+  ${miss.length ? '<article class="card"><div class="label"><span class="dot" style="background:var(--bad)"></span>Чаще всего путаешь</div><ul class="mini">'+miss.map(m => '<li><span class="num">'+m[1]+'×</span><span>'+esc(m[0])+'</span></li>').join('')+'</ul></article>' : ''}
+  <article class="card">
+    <h3>По разделам</h3>
+    <div class="secrows">${secRows}</div>
+  </article>
+  <article class="card" id="settings">
+    <h3>Настройки</h3>
+    <div class="list">
+      <label class="lrow" for="name">${I('user')}<span class="grow">Имя</span><input id="name" type="text" maxlength="30" value="${esc(state.name || '')}" placeholder="Как тебя зовут" autocomplete="given-name"></label>
+      <label class="lrow" for="exam">${I('cal')}<span class="grow">Дата экзамена</span><input id="exam" type="date" value="${esc(state.examDate)}"></label>
+      <a class="lrow" href="${DOC_URL}" target="_blank" rel="noopener">${I('book')}<span class="grow">Открыть полную методичку</span>${I('arrow')}</a>
+      <button class="lrow" data-act="toggle-install" aria-expanded="${showInstall}">${I('phone')}<span class="grow">Поставить на телефон</span>${I('arrow')}</button>
+      ${showInstall ? '<ol class="steps"><li>iPhone: открой ссылку в Safari → «Поделиться» → «На экран «Домой»».</li><li>Android: открой в Chrome → меню ⋮ → «Добавить на главный экран».</li></ol>' : ''}
+      <div class="lrow">${I('cloud')}<span class="grow small muted" id="sync"></span></div>
+      ${resetAsk
+        ? '<div class="lrow" style="flex-direction:column;align-items:stretch"><p style="margin:0 0 10px">Точно стереть весь прогресс? Карточки, серия и статистика тренажёра обнулятся.</p><div class="row-btns"><button class="pill-btn bad" data-act="reset-yes">Да, стереть</button><button class="pill-btn grey" data-act="reset-no">Отмена</button></div></div>'
+        : '<button class="lrow" data-act="reset-ask">'+I('reset')+'<span class="grow">Сбросить прогресс</span></button>'}
+    </div>
+  </article>`;
+}
+
+/* ---------- Карточка билета ---------- */
+function startStudy(list, startAt){
+  if (!list.length) return;
+  let q = list.slice();
+  if (startAt){ const i = q.indexOf(startAt); if (i > 0) q = q.slice(i).concat(q.slice(0,i)); }
+  session = {queue:q, i:0, flipped:false, know:0, again:0};
+  renderStudy();
+}
+function ctl(act, icon, label, main, ghost){ return '<button class="ctl'+(main?' main':'')+(ghost?' ghost':'')+'" data-act="'+act+'"'+(ghost?' tabindex="-1" aria-hidden="true"':'')+'><span class="c">'+icon+'</span>'+label+'</button>'; }
+function renderStudy(){
+  const el = $('#study');
+  if (!session){ el.hidden = true; document.body.classList.remove('lock'); return; }
+  el.hidden = false; document.body.classList.add('lock');
+  if (session.done){
+    el.innerHTML = '<div class="study-in"><header class="topbar center"><button class="round" data-act="close-study" aria-label="Закрыть">'+I('back')+'</button><h2 class="bar-title">Готово</h2><span></span></header>'
+      + medalHTML(I('check'), 'var(--good-tint)', 1) + '<h2 class="q">Знаю: '+session.know+' <span class="soft">· повторить: '+session.again+'</span></h2>'
+      + '<p class="listen muted">Карточки с ответом «Знаю» сами вернутся на экран «Сегодня», когда придёт время их повторить.</p>'
+      + '<div class="controls">'+ctl('close-study', I('check'), 'Вернуться', true)+'</div></div>';
+    return;
+  }
+  const n = session.queue[session.i], t = T[n], sec = SECTIONS[t[0]-1];
+  const pct = Math.round(session.i / session.queue.length * 100);
+  let body, controls;
+  if (!session.flipped){
+    body = medalHTML('<span class="medal-cap" style="color:var(--s'+t[0]+'i)">Билет</span><span class="medal-num">'+n+'</span>', 'var(--s'+t[0]+')', (session.i+1)/session.queue.length)
+      + '<p class="listen muted">Сначала вспомни ответ сама…</p><h2 class="q"><span class="soft">'+esc(sec.name)+'.</span> '+esc(t[1])+'</h2>';
+    controls = ctl('close-study', I('x'), 'Выйти') + ctl('flip', I('eye'), 'Показать', true) + ctl('flip', I('x'), '', false, true);
+  } else {
+    body = '<h2 class="q sm"><span class="soft">Билет '+n+'.</span> '+esc(t[1])+'</h2>'
+      + '<article class="card answer"><div class="label"><span class="dot" style="background:var(--s'+t[0]+'i)"></span>'+esc(sec.name)+'</div><ul>'+t[2].map(p => '<li>'+point(p)+'</li>').join('')+'</ul></article>';
+    controls = ctl('again', I('reset'), 'Повторить') + ctl('know', I('check'), 'Знаю', true) + ctl('close-study', I('x'), 'Выйти');
+  }
+  el.innerHTML = '<div class="study-in">'
+    + '<header class="topbar center"><button class="round" data-act="close-study" aria-label="Закрыть">'+I('back')+'</button><h2 class="bar-title">Билет '+n+'</h2><a class="round" href="'+DOC_URL+'" target="_blank" rel="noopener" aria-label="Открыть методичку">'+I('book')+'</a></header>'
+    + '<div class="muted small center">Карточка '+(session.i+1)+' из '+session.queue.length+'</div>'
+    + body + '<div class="controls">'+controls+'</div></div>';
+}
+function answer(ok){
+  const n = session.queue[session.i];
+  grade(n, ok);
+  if (ok) session.know++;
+  else { session.again++; if (!session.queue.slice(session.i+1).includes(n)) session.queue.push(n); }
+  session.i++; session.flipped = false;
+  if (session.i >= session.queue.length) session.done = true;
+  markActive(); commit(); renderStudy();
+  $('#study').scrollTop = 0;
+}
+
+/* ---------- Меню и отрисовка ---------- */
+function renderTabbar(){
+  const tb = (id, icon, label) => '<button class="tab" data-act="go" data-tab="'+id+'" aria-label="'+label+'" title="'+label+'"'+(tab===id?' aria-current="page"':'')+'>'+I(icon)+'</button>';
+  $('#tabbar').innerHTML = tb('today','home','Сегодня') + tb('tickets','cards','Билеты')
+    + '<button class="fab" data-act="fab" aria-label="Учить задание на сегодня" title="Учить задание на сегодня">'+SPARK+'</button>'
+    + tb('trainer','target','Тренажёр') + tb('progress','chart','Прогресс');
+}
+function render(){
+  const views = {today:todayView, tickets:ticketsView, trainer:trainerView, progress:progressView};
+  $('#main').innerHTML = views[tab]();
+  renderTabbar();
+  updateSyncLabel();
+  if (session) renderStudy();
+}
+
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-act]');
+  if (!el) return;
+  const act = el.dataset.act;
+  if (act === 'go') go(el.dataset.tab);
+  else if (act === 'fab'){ const info = dayInfo(today()), due = dueList(today()); if (info.tickets.length) startStudy(info.tickets); else if (due.length) startStudy(due); else go('tickets'); }
+  else if (act === 'study-today') startStudy(dayInfo(today()).tickets);
+  else if (act === 'study-today-at') startStudy(dayInfo(today()).tickets, Number(el.dataset.n));
+  else if (act === 'study-due') startStudy(dueList(today()));
+  else if (act === 'study-list') startStudy(filtered());
+  else if (act === 'study-one') startStudy(filtered(), Number(el.dataset.n));
+  else if (act === 'flip'){ session.flipped = true; renderStudy(); $('#study').scrollTop = 0; }
+  else if (act === 'know') answer(true);
+  else if (act === 'again') answer(false);
+  else if (act === 'close-study'){ session = null; renderStudy(); render(); }
+  else if (act === 'filter'){ secFilter = Number(el.dataset.sec); render(); }
+  else if (act === 'dx-set'){ dxSet = el.dataset.set; dxCase = null; render(); }
+  else if (act === 'dx-pick'){
+    if (dxCase.picked !== null) return;
+    const j = Number(el.dataset.i); dxCase.picked = j;
+    const ok = j === dxCase.i, name = DX[dxSet].rows[dxCase.i][0];
+    dxRun.total++; state.dx.total++;
+    if (ok){ dxRun.ok++; state.dx.ok++; } else { state.dx.miss[name] = (state.dx.miss[name] || 0) + 1; }
+    markActive(); commit(); render();
+  }
+  else if (act === 'dx-next'){ newCase(); render(); window.scrollTo(0,0); }
+  else if (act === 'to-settings'){ const s = document.getElementById('settings'); if (s) s.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'}); }
+  else if (act === 'toggle-install'){ showInstall = !showInstall; render(); }
+  else if (act === 'reset-ask'){ resetAsk = true; render(); }
+  else if (act === 'reset-no'){ resetAsk = false; render(); }
+  else if (act === 'reset-yes'){ const exam = state.examDate, nm = state.name; state = defaultState(); state.examDate = exam; state.name = nm; resetAsk = false; commit(); render(); }
+});
+document.addEventListener('input', e => {
+  if (e.target.id !== 'q') return;
+  query = e.target.value;
+  const tl = $('#tlist'); if (tl) tl.innerHTML = ticketTiles();
+  const n = filtered().length;
+  const c1 = $('#cnt'), c2 = $('#cta'); if (c1) c1.textContent = n; if (c2) c2.textContent = 'Учить карточки · ' + n;
+});
+document.addEventListener('change', e => {
+  if (e.target.id === 'exam' && /^\d{4}-\d{2}-\d{2}$/.test(e.target.value)){ state.examDate = e.target.value; commit(); render(); }
+  if (e.target.id === 'name'){ state.name = e.target.value.trim().slice(0,30); commit(); render(); }
+});
+document.addEventListener('keydown', e => {
+  if (!session) return;
+  if (e.key === 'Escape'){ session = null; renderStudy(); render(); }
+  else if (!session.done && !session.flipped && (e.key === ' ' || e.key === 'Enter') && e.target === document.body){ e.preventDefault(); session.flipped = true; renderStudy(); }
+});
+
+render();
+connect();
+// На отдельном сайте: работа без интернета (в claude.ai не используется)
+if (!IN_CLAUDE && 'serviceWorker' in navigator && location.protocol === 'https:'){
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+</script>
+
+</body>
+</html>
